@@ -3,7 +3,9 @@ from typing import Any
 import readline
 
 
-from langchain.chat_models import ChatOpenAI
+#from langchain.chat_models import ChatOpenAI
+from langchain.chat_models import AzureChatOpenAI
+
 from langchain.memory import ConversationBufferMemory
 import colorama
 
@@ -22,8 +24,10 @@ def setup_agent() -> Any:
     config.init()
     colorama.init()
 
-    llm = ChatOpenAI(
-        model_name="gpt-4",
+    llm = AzureChatOpenAI(
+        deployment_name="gpt-4",
+        openai_api_version="2023-03-15-preview",
+        verbose=True,
         temperature=0,
         callbacks=[handlers.PrintReasoningCallbackHandler()],
     )

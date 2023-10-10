@@ -23,14 +23,16 @@ class WalrusClient:
 
     def list_projects(self):
         """List projects."""
+        url2=self.api_url + "/v1/projects"
         response = requests.get(
-            url=self.api_url + "/v1/projects",
+            url=url2,
             params={"perPage": -1},
             headers=self.headers(),
             **self.request_args,
         )
-        if response.status_code >= 400:
-            raise Exception(f"Failed to list projects: {response.text}")
+
+        if response.status_code >= 400:            
+            raise Exception(f"{url2} --> Failed to list projects: {response.text}")
 
         return response.json()["items"]
 
